@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women's Dresses Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Product Card Section Styles - Easy to Integrate */
+        .product-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .product-section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .product-section-title {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+
+        .product-section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .product-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* Individual Product Card */
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .product-image-container {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #3b82f6;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .product-badge.sale {
+            background: #ef4444;
+        }
+
+        .product-badge.new {
+            background: #10b981;
+        }
+
+        .product-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            color: #3b82f6;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .product-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .product-description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .product-stars {
+            color: #fbbf24;
+            margin-right: 8px;
+        }
+
+        .product-rating-count {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .product-price-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .product-price-old {
+            font-size: 1.2rem;
+            color: #9ca3af;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .product-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .product-btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .product-btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .product-btn-secondary {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .product-btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-cards-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+
+            .product-section-title {
+                font-size: 2rem;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-cards-container {
+                grid-template-columns: 1fr;
+            }
+
+            .product-section {
+                padding: 40px 15px;
+            }
+        }
+
+        .category-chips {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .category-chip {
+            background-color: #f1f5f9;
+            color: #334155;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .category-chip:hover {
+            background: #e2e8f0;
+        }
+
+        .category-chip.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        /* Cart Button */
+        .cart-toggle {
+            background-color: #3b82f6;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 30px auto;
+            transition: all 0.3s ease;
+        }
+
+        .cart-toggle:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        /* Cart Display Section */
+        .cart-section {
+            margin-top: 50px;
+            padding: 30px;
+            background: #f8fafc;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .cart-section.active {
+            display: block;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .cart-title {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+            padding: 5px 10px;
+        }
+
+        .close-cart:hover {
+            background: #f3f4f6;
+            border-radius: 4px;
+        }
+
+        .cart-items {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .cart-item-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #1a1a1a;
+        }
+
+        .cart-item-price {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #d1d5db;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .item-quantity {
+            min-width: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .remove-item-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .remove-item-btn:hover {
+            background: #dc2626;
+        }
+
+        .cart-total {
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+        }
+
+        .total-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .cart-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .checkout-btn,
+        .clear-cart-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .checkout-btn {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .checkout-btn:hover {
+            background: #2563eb;
+        }
+
+        .clear-cart-btn {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .clear-cart-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+            font-size: 1.1rem;
+        }
+
+        /* Cart Notification */
+        .cart-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="product-section" id="product-cards">
+        <div class="product-section-header">
+            <h2 class="product-section-title">Women's Dresses Collection</h2>
+            <p class="product-section-subtitle">Discover our premium selection of dresses designed for every occasion.
+            </p>
+        </div>
+
+        <div class="product-cards-container">
+            <!-- Products will be loaded here -->
+        </div>
+
+        <!-- Cart Section at Bottom -->
+        <center>
+            <button id="cart-toggle" class="cart-toggle">
+                <i class="fas fa-shopping-cart"></i> View Cart (<span id="cart-count">0</span>)
+            </button>
+        </center>
+
+        <div id="cart-section" class="cart-section">
+            <div class="cart-header">
+                <h3 class="cart-title">Your Shopping Cart</h3>
+                <button class="close-cart">&times;</button>
+            </div>
+            <div class="cart-items" id="cart-items-container">
+                <!-- Cart items will be loaded here -->
+            </div>
+            <div class="cart-total">
+                <strong>Total: $<span id="cart-total">0.00</span></strong>
+            </div>
+            <div class="cart-actions">
+                <button id="checkout-btn" class="checkout-btn">Checkout</button>
+                <button id="clear-cart-btn" class="clear-cart-btn">Clear Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ==============================================
+        // WOMEN'S DRESSES STORE - MAIN JAVASCRIPT
+        // ==============================================
+        // IMPORTANT: Create separate files:
+        //            1. 'women-dresses.json' - Product data
+        //            2. 'orders.json' - Your existing orders file
+        // ==============================================
+
+        // Global variables
+        let dressesData = { womenDresses: [] };
+        let ordersData = { orders: [] };
+
+        // ==============================================
+        // 1. JSON DATA LOADER FUNCTIONS
+        // ==============================================
+
+        /**
+         * Loads products data from external file
+         */
+        async function loadDressesData() {
+            const jsonFileName = 'women-dresses.json'; // Change this to your JSON file name
+
+            try {
+                console.log(`📂 Loading products from: ${jsonFileName}`);
+                const response = await fetch(jsonFileName);
+
+                if (!response.ok) {
+                    throw new Error(`Failed to load ${jsonFileName}. Status: ${response.status}`);
+                }
+
+                dressesData = await response.json();
+                console.log(`✅ Products loaded: ${dressesData.womenDresses.length} products found`);
+
+                // Initialize the store
+                createProductCards();
+                createCategoryChips();
+                updateCartDisplay();
+                initializeEventListeners();
+
+            } catch (error) {
+                console.error('❌ Error loading products data:', error);
+                showErrorMessage(error);
+            }
+        }
+
+        /**
+         * Loads existing orders from orders.json (YOUR EXISTING FILE)
+         */
+        async function loadOrdersData() {
+    try {
+        const response = await fetch('orders.json');
+        if (response.ok) {
+            ordersData = await response.json();
+            console.log(`📋 Orders loaded from orders.json: ${ordersData.orders?.length || 0} orders found`);
+            
+            // Also save to localStorage for persistence
+            localStorage.setItem('ordersData', JSON.stringify(ordersData));
+            
+            if (!ordersData.orders) {
+                ordersData.orders = [];
+            }
+        } else {
+            // Try loading from localStorage first, then fallback
+            const savedData = localStorage.getItem('ordersData');
+            if (savedData) {
+                ordersData = JSON.parse(savedData);
+                console.log(`📋 Orders loaded from localStorage: ${ordersData.orders?.length || 0} orders found`);
+            } else {
+                ordersData = { orders: [] };
+                console.log('📋 Starting with empty orders');
+            }
+        }
+    } catch (error) {
+        console.error('Error loading orders:', error);
+        
+        // Fallback to localStorage
+        const savedData = localStorage.getItem('ordersData');
+        if (savedData) {
+            ordersData = JSON.parse(savedData);
+            console.log(`📋 Orders loaded from localStorage (fallback): ${ordersData.orders?.length || 0} orders found`);
+        } else {
+            ordersData = { orders: [] };
+            console.log('📋 Starting with empty orders (no data available)');
+        }
+    }
+}
+
+function saveOrdersData() {
+    try {
+        // Save to localStorage
+        localStorage.setItem('ordersData', JSON.stringify(ordersData));
+        console.log(`📋 Orders saved to localStorage: ${ordersData.orders?.length || 0} orders`);
+        
+        // Optionally trigger a download (for backup)
+        downloadOrdersJSON();
+        
+        return true;
+    } catch (error) {
+        console.error('Error saving orders:', error);
+        return false;
+    }
+}
+
+// Helper function to download JSON file
+function downloadOrdersJSON() {
+    const dataStr = JSON.stringify(ordersData, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    
+    // Create download link
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(dataBlob);
+    downloadLink.download = 'orders_backup.json';
+    
+    // Trigger download
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+    
+    console.log('📋 Orders backup downloaded as orders_backup.json');
+}
+
+        /**
+         * Saves order to YOUR existing orders.json file
+         * This will append the new order to your file
+         */
+        async function saveOrderToYourFile(newOrder) {
+            try {
+                // 1. First, load your existing orders
+                await loadOrdersData();
+
+                // 2. Add the new order to the beginning of the array (most recent first)
+                ordersData.orders.unshift(newOrder);
+
+                // 3. Create the updated JSON content
+                const updatedJson = JSON.stringify(ordersData, null, 2);
+
+                // 4. Create a download link for the updated orders.json
+                const dataBlob = new Blob([updatedJson], { type: 'application/json' });
+                const downloadUrl = URL.createObjectURL(dataBlob);
+
+                // 5. Create download link
+                const downloadLink = document.createElement('a');
+                downloadLink.href = downloadUrl;
+                downloadLink.download = 'orders.json';
+                downloadLink.textContent = 'Download Updated orders.json';
+                downloadLink.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #3b82f6;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            z-index: 10000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        `;
+
+                // 6. Add to document
+                document.body.appendChild(downloadLink);
+
+                // 7. Automatically remove after 10 seconds
+                setTimeout(() => {
+                    if (downloadLink.parentNode) {
+                        downloadLink.parentNode.removeChild(downloadLink);
+                        URL.revokeObjectURL(downloadUrl);
+                    }
+                }, 10000);
+
+                // 8. Also save to localStorage for backup
+                localStorage.setItem('lastOrder_' + newOrder.orderId, JSON.stringify(newOrder));
+
+                // 9. Save all orders to localStorage as backup
+                localStorage.setItem('allOrdersBackup', JSON.stringify(ordersData.orders));
+
+                console.log(`✅ Order ${newOrder.orderId} added to orders.json`);
+                console.log(`📊 Total orders in file: ${ordersData.orders.length}`);
+
+                return true;
+
+            } catch (error) {
+                console.error('❌ Error saving order to file:', error);
+
+                // Fallback: Save to localStorage
+                const backupOrders = JSON.parse(localStorage.getItem('allOrdersBackup') || '[]');
+                backupOrders.unshift(newOrder);
+                localStorage.setItem('allOrdersBackup', JSON.stringify(backupOrders));
+
+                console.log('📦 Order saved to localStorage as backup');
+                return false;
+            }
+        }
+
+        // ==============================================
+        // 2. PRODUCT DISPLAY FUNCTIONS
+        // ==============================================
+
+        function generateStarRating(rating) {
+            let stars = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+
+            for (let i = 1; i <= 5; i++) {
+                if (i <= fullStars) {
+                    stars += '<i class="fas fa-star"></i>';
+                } else if (i === fullStars + 1 && hasHalfStar) {
+                    stars += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    stars += '<i class="far fa-star"></i>';
+                }
+            }
+            return stars;
+        }
+
+        function createProductCards() {
+            const container = document.querySelector('.product-cards-container');
+            if (!container) {
+                console.error('❌ Product cards container not found!');
+                return;
+            }
+
+            container.innerHTML = '';
+            const dresses = dressesData?.womenDresses || [];
+
+            if (dresses.length === 0) {
+                container.innerHTML = `
+            <div style="text-align: center; grid-column: 1/-1; padding: 40px;">
+                <h3>No Products Found</h3>
+                <p>The JSON file might be empty or in wrong format.</p>
+            </div>
+        `;
+                return;
+            }
+
+            dresses.forEach((dress, index) => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+                productCard.setAttribute('data-product-id', dress.id || `product-${index + 1}`);
+
+                const formattedPrice = `$${parseFloat(dress.price).toFixed(2)}`;
+                const formattedOriginalPrice = dress.originalPrice ? `$${parseFloat(dress.originalPrice).toFixed(2)}` : '';
+                const discountBadge = dress.discount ? `<span class="product-badge sale">-${dress.discount}%</span>` : '';
+                const newBadge = (!dress.discount && dress.inStock) ? '<span class="product-badge new">New</span>' : '';
+
+                productCard.innerHTML = `
+            <div class="product-image-container">
+                <img src="${dress.image}" alt="${dress.name}" class="product-image" loading="lazy">
+                ${discountBadge}
+                ${newBadge}
+            </div>
+            <div class="product-content">
+                <div class="product-category">${dress.category || 'Uncategorized'}</div>
+                <h3 class="product-title">${dress.name}</h3>
+                <p class="product-description">${dress.description || 'No description available'}</p>
+                
+                <div class="product-rating">
+                    <div class="product-stars">
+                        ${generateStarRating(dress.rating || 0)}
+                    </div>
+                    <span class="product-rating-count">(${dress.reviewCount || 0} reviews)</span>
+                </div>
+                
+                <div class="product-price-container">
+                    <span class="product-price">${formattedPrice}</span>
+                    ${formattedOriginalPrice ? `<span class="product-price-old">${formattedOriginalPrice}</span>` : ''}
+                </div>
+                
+                <div class="product-actions">
+                    <button class="product-btn product-btn-primary add-to-cart-btn">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                    <button class="product-btn product-btn-secondary wishlist-btn">
+                        <i class="fas fa-heart"></i> Wishlist
+                    </button>
+                </div>
+            </div>
+        `;
+                container.appendChild(productCard);
+            });
+        }
+
+        function createCategoryChips() {
+            const header = document.querySelector('.product-section-header');
+            if (!header) return;
+
+            // Remove existing chips
+            const existingChips = header.querySelector('.category-chips');
+            if (existingChips) existingChips.remove();
+
+            // Get unique categories
+            const dresses = dressesData?.womenDresses || [];
+            const categoriesSet = new Set(["All"]);
+            dresses.forEach(dress => {
+                if (dress.category) categoriesSet.add(dress.category);
+            });
+
+            const categories = Array.from(categoriesSet);
+
+            const categoryChips = document.createElement('div');
+            categoryChips.classList.add('category-chips');
+
+            categories.forEach(category => {
+                const chip = document.createElement('span');
+                chip.classList.add('category-chip');
+                chip.textContent = category;
+                if (category === 'All') chip.classList.add('active');
+                categoryChips.appendChild(chip);
+            });
+
+            header.appendChild(categoryChips);
+
+            // Filtering functionality
+            categoryChips.addEventListener('click', (e) => {
+                if (e.target.classList.contains('category-chip')) {
+                    document.querySelectorAll('.category-chip').forEach(chip => {
+                        chip.classList.remove('active');
+                    });
+                    e.target.classList.add('active');
+
+                    const selectedCategory = e.target.textContent;
+                    const productCards = document.querySelectorAll('.product-card');
+
+                    productCards.forEach(card => {
+                        const cardCategory = card.querySelector('.product-category').textContent;
+                        card.style.display = (selectedCategory === 'All' || cardCategory === selectedCategory) ? 'flex' : 'none';
+                    });
+                }
+            });
+        }
+
+        // ==============================================
+        // 3. CART MANAGEMENT FUNCTIONS
+        // ==============================================
+
+        function getCart() {
+            return JSON.parse(localStorage.getItem('shoppingCart')) || [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        }
+
+        function addToCart(productId, productName, productPrice, productImage) {
+            let cart = getCart();
+            const existingItemIndex = cart.findIndex(item => item.id === productId);
+
+            if (existingItemIndex !== -1) {
+                cart[existingItemIndex].quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: productName,
+                    price: productPrice,
+                    image: productImage,
+                    quantity: 1
+                });
+            }
+
+            saveCart(cart);
+            showNotification(`${productName} added to cart!`);
+            updateCartDisplay();
+        }
+
+        function removeFromCart(index) {
+            let cart = getCart();
+            if (index >= 0 && index < cart.length) {
+                const removedItem = cart.splice(index, 1)[0];
+                saveCart(cart);
+                showNotification(`${removedItem.name} removed from cart!`);
+                updateCartDisplay();
+            }
+        }
+
+        function updateQuantity(index, change) {
+            let cart = getCart();
+            if (index >= 0 && index < cart.length) {
+                cart[index].quantity += change;
+                if (cart[index].quantity <= 0) {
+                    removeFromCart(index);
+                } else {
+                    saveCart(cart);
+                    updateCartDisplay();
+                }
+            }
+        }
+
+        function clearCart() {
+            if (confirm('Are you sure you want to clear your cart?')) {
+                localStorage.removeItem('shoppingCart');
+                updateCartDisplay();
+                showNotification('Cart cleared!');
+            }
+        }
+
+        function updateCartDisplay() {
+            const cart = getCart();
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cartTotalElement = document.getElementById('cart-total');
+            const cartCountElement = document.getElementById('cart-count');
+            let total = 0;
+
+            // Update cart count
+            if (cartCountElement) {
+                const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCountElement.textContent = itemCount;
+            }
+
+            // Update cart items
+            if (cartItemsContainer) {
+                cartItemsContainer.innerHTML = '';
+
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<p class="empty-cart">Your cart is empty. Add some products to get started!</p>';
+                } else {
+                    cart.forEach((item, index) => {
+                        const priceValue = parseFloat(item.price.replace('$', '')) || 0;
+                        const itemTotal = priceValue * item.quantity;
+                        total += itemTotal;
+
+                        const cartItem = document.createElement('div');
+                        cartItem.classList.add('cart-item');
+                        cartItem.innerHTML = `
+                    <div class="cart-item-info">
+                        <img src="${item.image || 'https://via.placeholder.com/60'}" alt="${item.name}" class="cart-item-image">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${item.price} each</div>
+                        </div>
+                    </div>
+                    <div class="cart-item-actions">
+                        <button class="quantity-btn decrease-btn" data-index="${index}">-</button>
+                        <span class="item-quantity">${item.quantity}</span>
+                        <button class="quantity-btn increase-btn" data-index="${index}">+</button>
+                        <button class="remove-item-btn" data-index="${index}">Remove</button>
+                    </div>
+                `;
+                        cartItemsContainer.appendChild(cartItem);
+                    });
+                }
+            }
+
+            // Update total
+            if (cartTotalElement) {
+                cartTotalElement.textContent = total.toFixed(2);
+            }
+
+            // Update checkout button state
+            updateCheckoutButton();
+        }
+
+        // ==============================================
+        // 4. CONTACT FORM FUNCTIONS
+        // ==============================================
+
+        function createContactForm() {
+            const cartSection = document.getElementById('cart-section');
+            if (!cartSection) return;
+
+            // Check if contact form already exists
+            if (document.getElementById('contact-form-container')) {
+                return;
+            }
+
+            const contactFormHTML = `
+        <div id="contact-form-container" class="contact-form-container">
+            <h4 class="contact-form-title">
+                <i class="fas fa-user-circle"></i> Contact Information
+            </h4>
+            <p class="contact-form-subtitle">Required for order processing and delivery</p>
+            
+            <form id="checkout-contact-form" class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customer-name">
+                            <i class="fas fa-user"></i> Full Name *
+                        </label>
+                        <input type="text" id="customer-name" name="name" required 
+                               placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-email">
+                            <i class="fas fa-envelope"></i> Email Address *
+                        </label>
+                        <input type="email" id="customer-email" name="email" required 
+                               placeholder="your@email.com">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customer-phone">
+                            <i class="fas fa-phone"></i> Phone Number *
+                        </label>
+                        <input type="tel" id="customer-phone" name="phone" required 
+                               placeholder="(123) 456-7890">
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-address">
+                            <i class="fas fa-home"></i> Delivery Address *
+                        </label>
+                        <textarea id="customer-address" name="address" required rows="2"
+                                  placeholder="Street, City, State, ZIP Code"></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="order-notes">
+                        <i class="fas fa-edit"></i> Order Notes (Optional)
+                    </label>
+                    <textarea id="order-notes" name="notes" rows="3" 
+                              placeholder="Special instructions, delivery preferences, gift wrapping, etc."></textarea>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="save-info" name="save-info" checked>
+                    <label for="save-info">Save my information for future orders</label>
+                </div>
+                
+                <button type="submit" id="submit-contact-btn" class="submit-contact-btn">
+                    <i class="fas fa-save"></i> Save Contact Information
+                </button>
+                
+                <div id="form-message" class="form-message"></div>
+            </form>
+        </div>
+    `;
+
+            // Insert contact form before cart actions
+            const cartActions = cartSection.querySelector('.cart-actions');
+            if (cartActions) {
+                cartActions.insertAdjacentHTML('beforebegin', contactFormHTML);
+            }
+        }
+
+        function initializeContactForm() {
+            const contactForm = document.getElementById('checkout-contact-form');
+            if (!contactForm) return;
+
+            // Load saved contact info if exists
+            loadSavedContactInfo();
+
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                saveContactInfo();
+            });
+        }
+
+        function saveContactInfo() {
+            const form = document.getElementById('checkout-contact-form');
+            const formData = {
+                name: document.getElementById('customer-name').value,
+                email: document.getElementById('customer-email').value,
+                phone: document.getElementById('customer-phone').value,
+                address: document.getElementById('customer-address').value,
+                notes: document.getElementById('order-notes').value,
+                saveInfo: document.getElementById('save-info').checked,
+                savedAt: new Date().toISOString()
+            };
+
+            // Validate required fields
+            if (!formData.name || !formData.email || !formData.phone || !formData.address) {
+                showFormMessage('Please fill all required fields', 'error');
+                return;
+            }
+
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(formData.email)) {
+                showFormMessage('Please enter a valid email address', 'error');
+                return;
+            }
+
+            // Save to localStorage
+            if (formData.saveInfo) {
+                localStorage.setItem('customerContactInfo', JSON.stringify(formData));
+            }
+
+            // Show success message
+            showFormMessage('Contact information saved successfully!', 'success');
+
+            // Update checkout button
+            updateCheckoutButton();
+        }
+
+        function showFormMessage(message, type) {
+            const formMessage = document.getElementById('form-message');
+            formMessage.innerHTML = `
+        <div class="${type}-message">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+            ${message}
+        </div>
+    `;
+
+            // Clear message after 3 seconds
+            setTimeout(() => {
+                formMessage.innerHTML = '';
+            }, 3000);
+        }
+
+        function loadSavedContactInfo() {
+            const savedInfo = JSON.parse(localStorage.getItem('customerContactInfo'));
+            if (savedInfo) {
+                document.getElementById('customer-name').value = savedInfo.name || '';
+                document.getElementById('customer-email').value = savedInfo.email || '';
+                document.getElementById('customer-phone').value = savedInfo.phone || '';
+                document.getElementById('customer-address').value = savedInfo.address || '';
+                document.getElementById('order-notes').value = savedInfo.notes || '';
+                document.getElementById('save-info').checked = savedInfo.saveInfo || false;
+            }
+        }
+
+        function getContactInfo() {
+            const savedInfo = JSON.parse(localStorage.getItem('customerContactInfo'));
+            if (savedInfo && savedInfo.name && savedInfo.email && savedInfo.phone && savedInfo.address) {
+                return savedInfo;
+            }
+            return null;
+        }
+
+        function updateCheckoutButton() {
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const cart = getCart();
+            const contactInfo = getContactInfo();
+
+            if (checkoutBtn) {
+                if (cart.length === 0) {
+                    checkoutBtn.disabled = true;
+                    checkoutBtn.title = 'Your cart is empty';
+                    checkoutBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Checkout (Empty Cart)';
+                    checkoutBtn.style.opacity = '0.7';
+                } else if (!contactInfo) {
+                    checkoutBtn.disabled = false;
+                    checkoutBtn.title = 'Please fill contact information first';
+                    checkoutBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Checkout (Fill Contact Info)';
+                    checkoutBtn.style.opacity = '1';
+                } else {
+                    checkoutBtn.disabled = false;
+                    checkoutBtn.title = 'Proceed to place order';
+                    checkoutBtn.innerHTML = '<i class="fas fa-lock"></i> Place Order & Save to orders.json';
+                    checkoutBtn.style.opacity = '1';
+                }
+            }
+        }
+
+        // ==============================================
+        // 5. ORDER PROCESSING FUNCTIONS
+        // ==============================================
+
+        async function handleCheckout() {
+            const cart = getCart();
+            const contactInfo = getContactInfo();
+
+            if (cart.length === 0) {
+                alert('Your cart is empty! Add some products before checkout.');
+                return;
+            }
+
+            if (!contactInfo) {
+                alert('Please fill in your contact information before checkout.');
+                // Scroll to contact form
+                const contactForm = document.getElementById('contact-form-container');
+                if (contactForm) {
+                    contactForm.scrollIntoView({ behavior: 'smooth' });
+                }
+                return;
+            }
+
+            // Calculate total
+            let total = 0;
+            const orderItems = cart.map(item => {
+                const priceValue = parseFloat(item.price.replace('$', '')) || 0;
+                const itemTotal = priceValue * item.quantity;
+                total += itemTotal;
+
+                return {
+                    id: item.id,
+                    name: item.name,
+                    price: item.price,
+                    quantity: item.quantity,
+                    image: item.image,
+                    itemTotal: parseFloat(itemTotal.toFixed(2))
+                };
+            });
+
+            // Create order object
+            const order = {
+                orderId: generateOrderId(),
+                customer: {
+                    name: contactInfo.name,
+                    email: contactInfo.email,
+                    phone: contactInfo.phone,
+                    address: contactInfo.address
+                },
+                items: orderItems,
+                subtotal: parseFloat(total.toFixed(2)),
+                tax: parseFloat((total * 0.08).toFixed(2)), // 8% tax
+                shipping: 5.99, // Fixed shipping
+                total: parseFloat((total + (total * 0.08) + 5.99).toFixed(2)),
+                notes: contactInfo.notes || '',
+                orderDate: new Date().toISOString(),
+                status: 'pending',
+                paymentMethod: 'Cash on Delivery',
+                deliveryEstimate: getDeliveryDate()
+            };
+
+            // Show order confirmation
+            const orderSummary = `
+ORDER CONFIRMATION
+
+📋 Order ID: ${order.orderId}
+💰 Total Amount: $${order.total}
+👤 Customer: ${contactInfo.name}
+📧 Email: ${contactInfo.email}
+📱 Phone: ${contactInfo.phone}
+🏠 Delivery Address: ${contactInfo.address}
+📅 Order Date: ${new Date(order.orderDate).toLocaleDateString()}
+🚚 Estimated Delivery: ${order.deliveryEstimate}
+💳 Payment Method: ${order.paymentMethod}
+
+📦 Items Ordered (${cart.length}):
+${cart.map((item, i) => `  ${i + 1}. ${item.name} - ${item.price} x ${item.quantity}`).join('\n')}
+
+This order will be saved to your orders.json file.
+`;
+
+            const confirmOrder = confirm(orderSummary + "\n\nClick OK to place order and save to orders.json");
+
+            if (!confirmOrder) {
+                return;
+            }
+
+            try {
+                // Save order to YOUR orders.json file
+                const saved = await saveOrderToYourFile(order);
+
+                if (saved) {
+                    // Show success message
+                    const successMessage = `
+🎉 ORDER PLACED SUCCESSFULLY!
+
+✅ Order has been added to your orders.json file
+✅ A download link will appear at top-left for 10 seconds
+✅ Click it to download the updated orders.json
+
+📥 Please replace your existing orders.json file 
+   with the downloaded file to keep all orders together.
+
+📧 A confirmation email has been sent to ${contactInfo.email}
+`;
+
+                    alert(successMessage);
+
+                    // Clear cart after successful order
+                    localStorage.removeItem('shoppingCart');
+                    updateCartDisplay();
+                    closeCartSection();
+
+                    // Reset contact form
+                    const contactForm = document.getElementById('checkout-contact-form');
+                    if (contactForm) {
+                        contactForm.reset();
+                    }
+                } else {
+                    alert('Order placed but could not save to file. Saved to localStorage as backup.');
+                }
+
+            } catch (error) {
+                console.error('Error processing order:', error);
+                alert('Error saving order. Please try again.');
+            }
+        }
+
+        function generateOrderId() {
+            const timestamp = Date.now();
+            const random = Math.floor(Math.random() * 1000);
+            return `ORD-${timestamp}-${random}`;
+        }
+
+        function getDeliveryDate() {
+            const today = new Date();
+            const deliveryDate = new Date(today);
+            deliveryDate.setDate(today.getDate() + 3); // 3 days delivery
+
+            // If delivery is on weekend, move to Monday
+            if (deliveryDate.getDay() === 0) { // Sunday
+                deliveryDate.setDate(deliveryDate.getDate() + 1);
+            } else if (deliveryDate.getDay() === 6) { // Saturday
+                deliveryDate.setDate(deliveryDate.getDate() + 2);
+            }
+
+            return deliveryDate.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // ==============================================
+        // 6. UI/UX FUNCTIONS
+        // ==============================================
+
+        function showNotification(message) {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.cart-notification');
+            if (existingNotification) existingNotification.remove();
+
+            const notification = document.createElement('div');
+            notification.classList.add('cart-notification');
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                notification.remove();
+            }, 2000);
+        }
+
+        function toggleCartSection() {
+            const cartSection = document.getElementById('cart-section');
+            if (cartSection) {
+                cartSection.classList.toggle('active');
+                // Create contact form when cart opens
+                if (cartSection.classList.contains('active')) {
+                    createContactForm();
+                    initializeContactForm();
+                    updateCheckoutButton();
+                }
+            }
+        }
+
+        function closeCartSection() {
+            const cartSection = document.getElementById('cart-section');
+            if (cartSection) cartSection.classList.remove('active');
+        }
+
+        function showErrorMessage(error) {
+            const container = document.querySelector('.product-cards-container');
+            if (container) {
+                container.innerHTML = `
+            <div style="text-align: center; grid-column: 1/-1; padding: 40px; color: #ef4444;">
+                <h3>⚠️ Failed to Load Products</h3>
+                <p><strong>Error:</strong> ${error.message}</p>
+                <p>Please make sure:</p>
+                <ol style="text-align: left; max-width: 500px; margin: 20px auto;">
+                    <li>The file 'women-dresses.json' exists in the same folder</li>
+                    <li>The JSON file has valid format</li>
+                    <li>You're running on a local server (not file:// protocol)</li>
+                </ol>
+                <button onclick="loadDressesData()" style="margin-top: 20px; padding: 10px 20px; background: #3b82f6; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Retry Loading
+                </button>
+            </div>
+        `;
+            }
+        }
+
+        // ==============================================
+        // 7. EVENT LISTENERS INITIALIZATION
+        // ==============================================
+
+        function initializeEventListeners() {
+            // Event delegation for Add to Cart buttons
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.add-to-cart-btn')) {
+                    const productCard = e.target.closest('.product-card');
+                    const productId = productCard.getAttribute('data-product-id');
+                    const productName = productCard.querySelector('.product-title').textContent;
+                    const productPrice = productCard.querySelector('.product-price').textContent;
+                    const productImage = productCard.querySelector('.product-image')?.src || '';
+                    addToCart(productId, productName, productPrice, productImage);
+                }
+
+                // Wishlist button
+                if (e.target.closest('.wishlist-btn')) {
+                    const productCard = e.target.closest('.product-card');
+                    const productName = productCard.querySelector('.product-title').textContent;
+                    showNotification(`${productName} added to wishlist!`);
+                }
+            });
+
+            // Cart event delegation
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('decrease-btn')) {
+                    const index = parseInt(e.target.getAttribute('data-index'));
+                    updateQuantity(index, -1);
+                }
+                if (e.target.classList.contains('increase-btn')) {
+                    const index = parseInt(e.target.getAttribute('data-index'));
+                    updateQuantity(index, 1);
+                }
+                if (e.target.classList.contains('remove-item-btn')) {
+                    const index = parseInt(e.target.getAttribute('data-index'));
+                    removeFromCart(index);
+                }
+            });
+
+            // Cart toggle button
+            const cartToggle = document.getElementById('cart-toggle');
+            if (cartToggle) {
+                cartToggle.addEventListener('click', toggleCartSection);
+            }
+
+            // Close cart button
+            const closeCartBtn = document.querySelector('.close-cart');
+            if (closeCartBtn) {
+                closeCartBtn.addEventListener('click', closeCartSection);
+            }
+
+            // Checkout button
+            const checkoutBtn = document.getElementById('checkout-btn');
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', handleCheckout);
+            }
+
+            // Clear cart button
+            const clearCartBtn = document.getElementById('clear-cart-btn');
+            if (clearCartBtn) {
+                clearCartBtn.addEventListener('click', clearCart);
+            }
+
+            // Close cart when clicking outside
+            document.addEventListener('click', (e) => {
+                const cartSection = document.getElementById('cart-section');
+                if (cartSection && cartSection.classList.contains('active')) {
+                    if (!cartSection.contains(e.target) && !e.target.closest('#cart-toggle')) {
+                        closeCartSection();
+                    }
+                }
+            });
+        }
+
+        // ==============================================
+        // 8. INITIALIZATION
+        // ==============================================
+
+        // Start the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🚀 Dresses Store Initializing...');
+
+            // Load your existing orders data first
+            await loadOrdersData();
+
+            // Load products data
+            await loadDressesData();
+
+            // Update checkout button state
+            updateCheckoutButton();
+        });
+
+        // ==============================================
+        // 9. CSS STYLES (Injected automatically)
+        // ==============================================
+
+        const cartStyles = `
+    /* Category Chips */
+    .category-chips {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        justify-content: center;
+    }
+    
+    .category-chip {
+        padding: 8px 16px;
+        background: #f1f5f9;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+    }
+    
+    .category-chip:hover {
+        background: #e2e8f0;
+    }
+    
+    .category-chip.active {
+        background: #3b82f6;
+        color: white;
+    }
+    
+    /* Cart Notification */
+    .cart-notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #10b981;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        z-index: 1000;
+        animation: slideIn 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        display: none;
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    /* Cart Button */
+    .cart-toggle {
+        background-color: #3b82f6;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 30px auto;
+        transition: all 0.3s ease;
+    }
+    
+    .cart-toggle:hover {
+        background: #2563eb;
+        transform: translateY(-2px);
+    }
+    
+    /* Cart Section */
+    .cart-section {
+        margin-top: 50px;
+        padding: 30px;
+        background: #f8fafc;
+        border-radius: 12px;
+        display: none;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .cart-section.active {
+        display: block;
+    }
+    
+    .cart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #e5e7eb;
+    }
+    
+    .cart-title {
+        font-size: 1.8rem;
+        color: #1a1a1a;
+        margin: 0;
+    }
+    
+    .close-cart {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #6b7280;
+        padding: 5px 10px;
+    }
+    
+    .close-cart:hover {
+        background: #f3f4f6;
+        border-radius: 4px;
+    }
+    
+    .cart-items {
+        margin-bottom: 20px;
+        max-height: 300px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+    
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        background: white;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #e5e7eb;
+    }
+    
+    .cart-item-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex: 1;
+    }
+    
+    .cart-item-image {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+    
+    .cart-item-details {
+        flex: 1;
+    }
+    
+    .cart-item-name {
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #1a1a1a;
+        font-size: 0.95rem;
+    }
+    
+    .cart-item-price {
+        color: #6b7280;
+        font-size: 0.85rem;
+    }
+    
+    .cart-item-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .quantity-btn {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #d1d5db;
+        background: white;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+    
+    .quantity-btn:hover {
+        background: #f3f4f6;
+    }
+    
+    .item-quantity {
+        min-width: 30px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+    
+    .remove-item-btn {
+        background: #ef4444;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+    
+    .remove-item-btn:hover {
+        background: #dc2626;
+    }
+    
+    .cart-total {
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+        margin-bottom: 20px;
+    }
+    
+    .total-amount {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1a1a1a;
+    }
+    
+    /* Contact Form Styles */
+    .contact-form-container {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #e5e7eb;
+    }
+    
+    .contact-form-title {
+        font-size: 1.2rem;
+        color: #1a1a1a;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .contact-form-subtitle {
+        color: #6b7280;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+    }
+    
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .form-row {
+        display: flex;
+        gap: 15px;
+    }
+    
+    @media (max-width: 768px) {
+        .form-row {
+            flex-direction: column;
+            gap: 15px;
+        }
+    }
+    
+    .form-group {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .form-group label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #374151;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    
+    .form-group label i {
+        color: #6b7280;
+        font-size: 0.8rem;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        padding: 10px 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        transition: border-color 0.2s ease;
+        font-family: inherit;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+        color: #9ca3af;
+    }
+    
+    .checkbox-group {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+    }
+    
+    .checkbox-group input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: #3b82f6;
+    }
+    
+    .checkbox-group label {
+        font-weight: normal;
+        font-size: 0.85rem;
+        color: #4b5563;
+    }
+    
+    .submit-contact-btn {
+        background: #10b981;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: background-color 0.2s ease;
+        font-size: 0.95rem;
+        margin-top: 10px;
+    }
+    
+    .submit-contact-btn:hover {
+        background: #059669;
+    }
+    
+    .form-message {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+    }
+    
+    .success-message {
+        background: #d1fae5;
+        color: #065f46;
+        padding: 10px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+    }
+    
+    .error-message {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 10px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+    }
+    
+    /* Cart Actions */
+    .cart-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    
+    .checkout-btn,
+    .clear-cart-btn {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .checkout-btn {
+        background: #3b82f6;
+        color: white;
+    }
+    
+    .checkout-btn:hover:not(:disabled) {
+        background: #2563eb;
+        transform: translateY(-1px);
+    }
+    
+    .checkout-btn:disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+    
+    .clear-cart-btn {
+        background: #f3f4f6;
+        color: #6b7280;
+        border: 1px solid #e5e7eb;
+    }
+    
+    .clear-cart-btn:hover {
+        background: #e5e7eb;
+    }
+    
+    .empty-cart {
+        text-align: center;
+        padding: 40px;
+        color: #6b7280;
+        font-size: 1.1rem;
+    }
+`;
+
+        // Inject styles into the document
+        if (document.head) {
+            const styleSheet = document.createElement('style');
+            styleSheet.textContent = cartStyles;
+            document.head.appendChild(styleSheet);
+        }
+
+        // Make functions available globally for debugging
+        window.reloadStore = loadDressesData;
+        window.clearStoreCart = clearCart;
+        window.getStoreCart = getCart;
+        window.saveContactInfo = saveContactInfo;
+        window.handleCheckout = handleCheckout;
+        window.loadOrdersData = loadOrdersData;
+    </script>
+</body>
+
+</html>
